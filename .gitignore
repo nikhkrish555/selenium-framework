@@ -2,5 +2,4 @@
 .project
 .settings/
 target/
-test-output
-Reports/
+test-output/
