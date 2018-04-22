@@ -24,7 +24,7 @@ public class VerifyLoginPageWithReport {
 
 	@BeforeMethod
 	public void setup() {
-		report = new ExtentReports("./Reports/SampleReport.html", true);
+		report = new ExtentReports("./Reports/LoginPage.html", true);
 		logger=report.startTest("Verify Login Test");
 		driver = BrowserFactory.getBrowser("qa", "firefox");
 		driver.get(DataProviderFactory.getConfig().getApplicationURL("qa", "url", "http://demo.avactis.com/5.0.1/"));
