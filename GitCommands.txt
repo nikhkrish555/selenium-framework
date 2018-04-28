@@ -1,0 +1,225 @@
+git config --global user.name "Nikhil Krishna"
+git config --global user.email "nikh.krish555@gmail.com"
+git config --global --list
+
+git clone <repo url>
+
+git status
+
+git add <file name>
+
+git commit -m "commit message"
+if you want to change the commit message, do the following:
+git commit --amend
+
+Setting Default Editor:
+set Path in windows environment variable poiting to notepad++ path
+then try command "notepad++" in gitbash
+You can set an alias to notepad++ by creating .bash_profile in root with following details:
+alias npp='notepad++.exe -multiInst -nosession'
+Now exit the gitbash session and then relaunch it and enter npp, that should open notepad ++
+
+To set it as default editor in gitbash, use the following command
+git config --global core.editor "notepad++.exe -multiInst -nosession"
+git config --global -e 
+above command will open the config in notepad++ editor
+
+new git repo
+git init <name of project>
+
+git add and git commit can be combined as seen below and this can only be done for files that are tracked
+git commit -am "Adding more ipsum text" 
+
+Tracked File: any file that is already committed / staged.
+git ls-files
+
+To recursively create directory use:
+mkdir -p level1/level2/level3/level4
+
+To unstage commit:
+git reset HEAD <file name>
+To reset previous commit
+git reset HEAD^1
+To reset 2 commits backward
+git reset HEAD^2
+To reset commit forward
+git reset <commitid>
+git reset HEAD@{1}
+
+3 types of reset:
+=================
+Mixed reset: reset what is in your staging area and reset head to wherever you tell it to go
+Hard reset: most distructive - reset working directory and staging area  and reset head to wherever you tell it to go
+Soft reset: less distructive, just points the header to a new location  
+
+
+Above command will move changes to working directory. Now revert change do following:
+git checkout -- <file-name>
+
+The first command - using the period (git add .) will add new files or new changes to existing files.
+The second command (git add -A) will do everything as the first command, but also includes deleted files.
+The final command (git add -u) updates existing files,  including removals, but will not add new files.
+
+History
+=======
+To shorten the commit id use
+git log --abbrev-commit
+git log --oneline --graph --decorate
+git log --since="3 days ago"
+git log -- <file-name>
+git log --follow -- leve1/level2/level3
+git show <commit_id> 
+git log --all --graph --decorate --oneline
+
+Alias
+======
+$ git config --global alias.hist "log --all --graph --decorate --oneline"
+
+Ignoring Unwanted Files
+=======================
+create .gitignore file in the project folder
+format:
+specific file: myfile.ext
+file pattern: *.ext
+Folder: my-folder/
+
+after adding the file to .gitgnore, git commit -am "adding comments"
+
+Diff
+===
+diff between working and staging area:
+git diff 
+git difftool
+
+diff between last commit and current working directory
+git diff head
+git difftool head
+
+diff between staging and last commit
+git diff --staged HEAD
+
+if you only want to see diff on a particular file:
+git diff -- <filename>
+
+diff between HEAD and HEAD-1
+git diff HEAD HEAD^
+
+diff between 2 commits
+git diff <latest commit> <old commit>
+
+diff local master and remote master
+git diff master origin/master
+
+Branching
+=========
+To list local and remote branhces:
+git branch -a
+
+To list local branches
+git branch
+
+
+git branch <branchname>
+OR
+git checkout -b <branchname>
+
+to rename a local branch:
+git branch -m <oldname> <newname>
+
+git branch -d <branchname>
+
+Merge
+=====
+after making changes on the feature branch, checkout master and then do a diff and then merge
+git difftool master feature/title-change
+git merge feature/title-change
+git branch -d feature/title-change
+
+if you want to see the branch has been diverted and then merged use the following:
+git merge feature/title-change --no-ff
+
+
+to resolve conflicts
+git mergetool
+
+GIT PULL
+========
+git pull = git fetch + git merge
+
+Git pull with rebase
+====================
+If there are remote changes and you don't want to blingly merge using git pull then do the following
+git fetch origin master
+git pull --rebase origin master
+so that your changes ahead of remote master. Git fetch is a non-destructive command that just update the references.
+
+
+Git Stash
+=========
+to save current working directory
+git stash
+git stash apply
+git stash list
+git stash drop
+
+stash will not save untracked files
+to save untracked files then do the following
+git  stash -u
+
+to combine  git stash apply and git stash drop do the following:
+git stash pop
+
+to add a message to git stash, do the following:
+git stash save "simple changes"
+
+in git, the latest stashed item will have index 0.
+stash@{0}
+stash@{1}
+
+git stash show stash@{1}
+
+git stash apply stash@{1}
+
+to get rid of git stashes:
+git stash clear
+
+to apply git stash changes to a branch do the following:
+git stash branch newchanges
+
+Tags
+====
+
+Simple tags:(lightweight tag)
+git tag myTag
+git tag --list
+git show myTag
+git tag --delete myTag
+
+Annotated Tags: (-a argument tell it is an annotated tag)
+git tag -a v-1.0
+git tag --list
+
+Reflog
+======
+shows the history of git commands used:
+git reflog
+
+Cherry Pick:
+============
+git cherry-pick <commit_id>
+
+Git Squash
+==========
+You can use git merge --squash for this, which is slightly more elegant than git rebase -i. Suppose you're on master and you want to squash the last 12 commits into one. First check that git status is clean (since git reset --hard will throw away staged and unstaged changes) and then:
+
+# Reset the current branch to the commit just before the last 12:
+git reset --hard HEAD~12
+
+# HEAD@{1} is where the branch was just before the previous command.
+# This command sets the state of the index to be as it would just
+# after a merge from that commit:
+git merge --squash HEAD@{1}
+
+# Commit those squashed changes.  The commit message will be helpfully
+# prepopulated with the commit messages of all the squashed commits:
+git commit
