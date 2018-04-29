@@ -2,6 +2,7 @@ package testcases;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,6 +16,7 @@ import factory.BrowserFactory;
 import factory.DataProviderFactory;
 import pages.HomePage;
 import pages.LoginPage;
+import utility.Helper;
 
 public class VerifyLoginPageWithReport {
 
@@ -26,7 +28,7 @@ public class VerifyLoginPageWithReport {
 	public void setup() {
 		report = new ExtentReports("./Reports/LoginPage.html", true);
 		logger=report.startTest("Verify Login Test");
-		driver = BrowserFactory.getBrowser("qa", "firefox");
+		driver = BrowserFactory.getBrowser("qa", "chrome");
 		driver.get(DataProviderFactory.getConfig().getApplicationURL("qa", "url", "http://demo.avactis.com/5.0.1/"));
 		logger.log(LogStatus.INFO, "Application is up and running");
 	}
@@ -45,10 +47,13 @@ public class VerifyLoginPageWithReport {
 	}
 
 	@AfterMethod
-	public void tearDown() {
+	public void tearDown(ITestResult result) {
+		if(result.getStatus()==ITestResult.FAILURE) {
+			String path = Helper.captureScreenshot(driver, result.getName());
+			logger.log(LogStatus.FAIL, logger.addScreenCapture(path));
+		}
 		BrowserFactory.closeBrowser(driver);
 		report.endTest(logger);
 		report.flush();
 	}
-
 }
