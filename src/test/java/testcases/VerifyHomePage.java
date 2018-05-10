@@ -29,7 +29,7 @@ public class VerifyHomePage {
 		String title = home.getApplicationTitle();
 		Assert.assertTrue(title.contains("Avactis"));
 	}
-
+	
 	@AfterMethod
 	public void tearDown() {
 		BrowserFactory.closeBrowser(driver);

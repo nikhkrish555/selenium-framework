@@ -38,7 +38,7 @@ public class CsvDataProvider {
 					repoCon.close();
 				}
 			} else {
-				System.out.println("FileName or FileDirectory does not exists!");
+				System.out.println("FileName does not exists or name is a directory!");
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
