@@ -13,8 +13,8 @@ public class CsvDataProvider {
 	File fname;
 
 	public CsvDataProvider() {
-		applicationTestDataPath = "./ApplicationTestData";
-		fname = new File(applicationTestDataPath + "/AppData.csv");
+		applicationTestDataPath = System.getProperty("user.dir") + File.separator + "ApplicationTestData";
+		fname = new File(applicationTestDataPath + File.separator + "AppData.csv");
 	}
 
 	public String getTestData(final String key) {

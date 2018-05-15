@@ -15,12 +15,12 @@ import pages.LoginPage;
 public class VerifyLoginPage {
 
 	private WebDriver driver;
+	BrowserFactory browser = new BrowserFactory();
 
 	@BeforeMethod
 	public void setup() {
-		driver = BrowserFactory.getBrowser("qa", "firefox");
+		driver = browser.getBrowser("qa", "chrome");
 		driver.get(DataProviderFactory.getConfig().getApplicationURL("qa", "url", "http://demo.avactis.com/5.0.1/"));
-
 	}
 
 	@Test
@@ -35,7 +35,7 @@ public class VerifyLoginPage {
 	
 	@AfterMethod
 	public void tearDown() {
-		BrowserFactory.closeBrowser(driver);
+		browser.closeBrowser(driver);
 	}
 
 }

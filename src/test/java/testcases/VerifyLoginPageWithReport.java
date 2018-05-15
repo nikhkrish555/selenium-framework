@@ -23,12 +23,13 @@ public class VerifyLoginPageWithReport {
 	private WebDriver driver;
 	ExtentReports report;
 	ExtentTest logger;
+	BrowserFactory browser = new BrowserFactory();
 
 	@BeforeMethod
 	public void setup() {
 		report = new ExtentReports("./Reports/LoginPage.html", true);
 		logger=report.startTest("Verify Login Test");
-		driver = BrowserFactory.getBrowser("qa", "chrome");
+		driver = browser.getBrowser("qa", "chrome");
 		driver.get(DataProviderFactory.getConfig().getApplicationURL("qa", "url", "http://demo.avactis.com/5.0.1/"));
 		logger.log(LogStatus.INFO, "Application is up and running");
 	}
@@ -43,6 +44,7 @@ public class VerifyLoginPageWithReport {
 		login.loginApplication(cs.getTestData("username"), cs.getTestData("password"));
 		logger.log(LogStatus.PASS, "Login Successful");
 		login.signOutApplication();
+		logger.log(LogStatus.INFO, logger.addScreenCapture(Helper.captureScreenshot(driver, "Login - Logout Validation Successful")));
 		logger.log(LogStatus.PASS, "Logout Successful");
 	}
 
@@ -52,7 +54,7 @@ public class VerifyLoginPageWithReport {
 			String path = Helper.captureScreenshot(driver, result.getName());
 			logger.log(LogStatus.FAIL, logger.addScreenCapture(path));
 		}
-		BrowserFactory.closeBrowser(driver);
+		browser.closeBrowser(driver);
 		report.endTest(logger);
 		report.flush();
 	}

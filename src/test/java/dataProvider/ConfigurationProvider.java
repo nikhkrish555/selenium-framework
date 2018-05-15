@@ -8,11 +8,12 @@ import org.ini4j.InvalidFileFormatException;
 
 public class ConfigurationProvider {
 	Ini prefs;
-	final String DEFAULT_DRIVER_PATH = "./BrowserDrivers/geckodriver-v0.20.1-win64/geckodriver.exe";
+	
+	final String DEFAULT_DRIVER_PATH = System.getProperty("user.dir") + File.separator+ "BrowserDrivers"+File.separator+"geckodriver-v0.20.1-win64"+File.separator+"geckodriver.exe";
 	final String DEFAULT_HEADER = "qa";
 
 	public ConfigurationProvider() {
-		final File fname = new File("./Configuration/config.ini");
+		final File fname = new File(System.getProperty("user.dir") + File.separator+ "Configuration"+File.separator+"config.ini");
 		try {
 			prefs = new Ini(fname);
 		} catch (InvalidFileFormatException e) {

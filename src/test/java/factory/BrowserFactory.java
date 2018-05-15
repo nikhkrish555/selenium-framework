@@ -8,9 +8,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BrowserFactory {
 
-	private static WebDriver driver = null;
+	private WebDriver driver = null;
 
-	public static WebDriver getBrowser(String environment, String browserName) {
+	public  WebDriver getBrowser(String environment, String browserName) {
 		if (driver == null) {
 			if (browserName.equalsIgnoreCase("firefox")) {
 				System.setProperty("webdriver.gecko.driver",
@@ -32,8 +32,8 @@ public class BrowserFactory {
 
 	}
 
-	public static void closeBrowser(WebDriver driver) {
-		// driver.close();
+	public void closeBrowser(WebDriver driver) {
+		driver.close();
 		driver.quit();
 	}
 }
