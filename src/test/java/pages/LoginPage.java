@@ -43,5 +43,4 @@ public class LoginPage {
 		Assert.assertEquals(signOutElement.getText(), "SIGN OUT");
 		signOutElement.click();
 	}
-
 }

@@ -20,7 +20,6 @@ public class VerifyHomePage {
 	public void setup() {
 		driver = browser.getBrowser("qa", "chrome");
 		driver.get(DataProviderFactory.getConfig().getApplicationURL("qa", "url", "http://demo.avactis.com/5.0.1/"));
-
 	}
 
 	@Test
