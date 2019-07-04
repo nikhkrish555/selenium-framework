@@ -208,8 +208,8 @@ Cherry Pick:
 ============
 git cherry-pick <commit_id>
 
-Git Squash
-==========
+Git Squash Method 1
+===================
 You can use git merge --squash for this, which is slightly more elegant than git rebase -i. Suppose you're on master and you want to squash the last 12 commits into one. First check that git status is clean (since git reset --hard will throw away staged and unstaged changes) and then:
 
 # Reset the current branch to the commit just before the last 12:
@@ -223,3 +223,13 @@ git merge --squash HEAD@{1}
 # Commit those squashed changes.  The commit message will be helpfully
 # prepopulated with the commit messages of all the squashed commits:
 git commit
+
+Git Squash Method 2
+===================
+git checkout master 
+git pull 
+git checkout [branch] 
+git pull origin master 
+git reset --soft master 
+git commit -m '[msg]' 
+git push --force" 
